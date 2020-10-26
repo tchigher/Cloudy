@@ -49,7 +49,7 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later.
 6. Select your device in XCode [`1`]
 7. Go to `Cloudy` [`2`], select `Signing & Capabilities` [`3`]
 8. Select your name inside `Team` [`4`] and change the `Bundle Identifier`[`4`] to something / whatever you like `com.your.favorite.villian`
-9. Press run and wait until it pops up on your device
+9. Press run [`5`] and wait until it pops up on your device
 10. Have a lot of fun streaming games on iOS
 
 ![](Media/xcode.png)
