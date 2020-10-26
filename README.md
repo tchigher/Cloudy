@@ -28,9 +28,9 @@ A cloud gaming ready browser for iOS.
 
 # Support the development
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=79U6NVP3HMY68)
-
-[![patreon](Media/becomePatreon.png)](https://www.patreon.com/bePatron?u=44456418)
+ Patreon             |  Paypal
+:-------------------------:|:-------------------------:
+[![patreon](Media/becomePatreon.png)](https://www.patreon.com/bePatron?u=44456418)  |  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://paypal.me/pools/c/8tKK9M8XUi)
 
 # Ways to get the app on your device
 
