@@ -9,7 +9,7 @@ class FullScreenWKWebView: WKWebView {
     }
 }
 
-class ViewController: UIViewController {
+class RootViewController: UIViewController {
 
     /// Containers
     @IBOutlet var containerWebView: UIView!
@@ -57,6 +57,7 @@ class ViewController: UIViewController {
         // menu view controller
         let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menu = menuViewController
+        menuViewController.hideMenu()
         menuViewController.webController = webView
         menuViewController.view.frame = view.bounds
         menuViewController.willMove(toParent: self)
@@ -73,7 +74,7 @@ class ViewController: UIViewController {
 
 /// WebView delegates
 /// TODO extract this to a separate module with proper abstraction
-extension ViewController: WKNavigationDelegate, WKUIDelegate {
+extension RootViewController: WKNavigationDelegate, WKUIDelegate {
 
     /// When a stadia page finished loading, inject the controller override script
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

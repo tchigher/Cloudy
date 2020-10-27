@@ -58,7 +58,7 @@ class MenuViewController: UIViewController {
 /// Implementing controlling protocol
 extension MenuViewController: MenuController {
 
-    /// Update adress bar elements
+    /// Update address bar elements
     func updateAddressBar(with info: AddressBarInfo) {
         addressBar.text = info.url
         backButton.isEnabled = info.canGoBack
@@ -75,7 +75,7 @@ extension MenuViewController: MenuController {
 extension MenuViewController {
 
     /// Hide menu and keyboard
-    private func hideMenu() {
+    func hideMenu() {
         view.fadeOut()
         addressBar.resignFirstResponder()
     }
