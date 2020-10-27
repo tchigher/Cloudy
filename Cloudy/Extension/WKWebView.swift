@@ -4,12 +4,26 @@ import Foundation
 import WebKit
 import GameController
 
+/// Types of navigation
+enum Navigation {
+    case forward
+    case backward
+    case reload
+}
+
+/// Navigation execution hidden behind this protocol
+protocol WebController {
+    func executeNavigation(action: Navigation)
+    func navigateTo(address: String)
+    func clearCache()
+}
+
 /// The script to be injected into the webview
 /// It's overwriting the navigator.getGamepads function
 /// to make the connection with the native GCController solid
 private let script:       String        = """
                                           var emulatedGamepad = {
-                                              id: "Xbox Wireless Controller (STANDARD GAMEPAD Vendor: 045e Product: 02fd)",
+                                              id: "\(GCExtendedGamepad.id)",
                                               index: 0,
                                               connected: true,
                                               timestamp: 0,
@@ -36,22 +50,38 @@ private let script:       String        = """
                                           };
                                           """
 
+extension WKWebView: WebController {
 
-/// Mapping from a alias to a full url
-private let aliasMapping: [String: URL] = [
-    "stadia": URL(string: "https://stadia.google.com")!,
-    "gfn": URL(string: "https://play.geforcenow.com/mall")!,
-]
+    /// Execute given navigation
+    func executeNavigation(action: Navigation) {
+        switch action {
+            case .forward:
+                goForward()
+            case .backward:
+                goBack()
+            case .reload:
+                guard let url = url else { return }
+                navigateTo(url: url)
+        }
+    }
 
-extension WKWebView {
+    /// Clear cache
+    func clearCache() {
+        // clean cookies
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        // clean cache
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                #if DEBUG
+                    print("WKWebsiteDataStore record deleted:", record)
+                #endif
+            }
+        }
+    }
 
     /// Navigate to a given string
     func navigateTo(address: String) {
-        // alias available?
-        if let aliasUrl = aliasMapping[address] {
-            load(URLRequest(url: aliasUrl))
-            return
-        }
         /// build url
         guard let url = URL(string: address.fixedProtocol()) else {
             print("Error creating Url from '\(address)'")
@@ -69,19 +99,5 @@ extension WKWebView {
     /// Inject inject the js controller script
     func injectControllerScript() {
         evaluateJavaScript(script, completionHandler: nil)
-    }
-
-    class func clean() {
-        // clean cookies
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        // clean cache
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-                #if DEBUG
-                    print("WKWebsiteDataStore record deleted:", record)
-                #endif
-            }
-        }
     }
 }

@@ -13,22 +13,15 @@ class ViewController: UIViewController {
 
     /// Containers
     @IBOutlet var containerWebView: UIView!
-    @IBOutlet var containerMenu:    UIView!
-
-    /// View references
-    @IBOutlet weak var userAgentTextField:     UITextField!
-    @IBOutlet weak var manualUserAgent:        UISwitch!
-    @IBOutlet weak var automaticUserAgent:     UISwitch!
-    @IBOutlet weak var addressBar:             UITextField!
-    @IBOutlet weak var backButton:             UIButton!
-    @IBOutlet weak var forwardButton:          UIButton!
 
     /// The hacked webView
-    private var        webView:                FullScreenWKWebView!
-    private let        navigator:              Navigator = Navigator()
+    private var webView:   FullScreenWKWebView!
+    private let navigator: Navigator = Navigator()
+
+    var menu: MenuController? = nil
 
     /// By default hide the status bar
-    override var       prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden: Bool {
         true
     }
 
@@ -61,111 +54,36 @@ class ViewController: UIViewController {
         } else {
             webView.navigateTo(url: Navigator.Config.Url.googleStadia)
         }
-        // tapping anywhere else in the menu closes it
-        let tap = UITapGestureRecognizer(target: self, action: #selector(onOverlayClosePressed))
-        containerMenu.addGestureRecognizer(tap)
-        // set user agent to label
-        userAgentTextField.text = UserDefaults.standard.manualUserAgent
-    }
-
-    /// Update the address bar and its buttons
-    func updateAddressBar() {
-        addressBar.text = webView.url?.absoluteString ?? ""
-        backButton.isEnabled = webView.canGoBack
-        forwardButton.isEnabled = webView.canGoForward
-    }
-
-}
-
-/// UI handling extension
-extension ViewController {
-
-    /// Hide menu and keyboard
-    private func hideMenu() {
-        containerMenu.fadeOut()
-        addressBar.resignFirstResponder()
-    }
-
-    /// Forward
-    @IBAction func onForwardPressed(_ sender: Any) {
-        webView.goForward()
-        hideMenu()
-    }
-
-    /// Go backward
-    @IBAction func onBackPressed(_ sender: Any) {
-        webView.goBack()
-        hideMenu()
-    }
-
-    /// Navigate to a url
-    @IBAction func onGoPressed(_ sender: Any) {
-        // early exit
-        guard let address = addressBar.text else { return }
-        webView.navigateTo(address: address)
-        hideMenu()
-    }
-
-    /// Reload current page
-    @IBAction func onReloadPressed(_ sender: Any) {
-        guard let url = webView.url else { return }
-        webView.navigateTo(url: url)
-        hideMenu()
-    }
-
-    /// Clear address bar pressed
-    @IBAction func onClearPressed(_ sender: Any) {
-        addressBar.text = ""
-        addressBar.becomeFirstResponder()
-    }
-
-    /// Delete cache pressed
-    @IBAction func onDeleteCachePressed(_ sender: Any) {
-        WKWebView.clean()
-    }
-
-    /// Automatic user agent changed
-    @IBAction func onAutomaticUserAgentSwitchChanged(_ sender: Any) {
-        manualUserAgent.setOn(!automaticUserAgent.isOn, animated: true)
-        navigator.automaticUserAgentSetting = automaticUserAgent.isOn
-        navigator.userAgent = userAgentTextField.text
-    }
-
-    /// Manual user agent changed
-    @IBAction func onManualUserAgentSwitchChanged(_ sender: Any) {
-        automaticUserAgent.setOn(!manualUserAgent.isOn, animated: true)
-        navigator.automaticUserAgentSetting = automaticUserAgent.isOn
-        navigator.userAgent = userAgentTextField.text
+        // menu view controller
+        let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        menu = menuViewController
+        menuViewController.webController = webView
+        menuViewController.view.frame = view.bounds
+        menuViewController.willMove(toParent: self)
+        addChild(menuViewController)
+        view.addSubview(menuViewController.view)
+        menuViewController.didMove(toParent: self)
     }
 
     /// Tapped on the menu item
     @IBAction func onMenuButtonPressed(_ sender: Any) {
-        containerMenu.fadeIn()
+        menu?.show()
     }
-
-    /// Tapped somewhere to close the overlay
-    @IBAction func onOverlayClosePressed(_ sender: Any) {
-        hideMenu()
-    }
-
-    /// User agent value changed
-    @IBAction func onUserAgentValueChanged(_ sender: Any) {
-        navigator.userAgent = userAgentTextField.text
-        UserDefaults.standard.manualUserAgent = userAgentTextField.text
-    }
-
 }
 
+/// WebView delegates
+/// TODO extract this to a separate module with proper abstraction
 extension ViewController: WKNavigationDelegate, WKUIDelegate {
 
     /// When a stadia page finished loading, inject the controller override script
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //if let url = webView.url?.absoluteString {
-        //    if url.starts(with: Navigator.Config.Url.googleStadia.absoluteString) {
+        // inject the script
         webView.injectControllerScript()
-        //    }
-        //}
-        updateAddressBar()
+        // update address
+        menu?.updateAddressBar(with: AddressBarInfo(url: webView.url?.absoluteString,
+                                                    canGoBack: webView.canGoForward,
+                                                    canGoForward: webView.canGoBack))
+        // save last visited url
         UserDefaults.standard.lastVisitedUrl = webView.url
     }
 

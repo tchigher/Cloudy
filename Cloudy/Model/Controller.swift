@@ -1,6 +1,7 @@
 // Copyright (c) 2020 Nomad5. All rights reserved.
 
 import Foundation
+import GameController
 
 /// Struct for generating a js readable json that contains the
 /// proper values from the native controller
@@ -18,7 +19,7 @@ struct Controller: Encodable {
 
     /// Some static ones for proper configuration
     private let connected: Bool   = true
-    private let id:        String = "Emulated iOS Controller"
+    private let id:        String = GCExtendedGamepad.id
     private let index:     Int    = 0
     private let mapping:   String = "standard"
     private let timestamp: Double = 0
