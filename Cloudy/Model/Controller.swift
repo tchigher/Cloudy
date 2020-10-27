@@ -10,11 +10,12 @@ struct Controller: Encodable {
     /// Button of the controller
     public struct Button: Encodable {
         let pressed: Bool
-        let value:   Double
+        let touched: Bool
+        let value:   Float
     }
 
     /// Axes and buttons are the only dynamic values
-    let axes:    [Double]
+    let axes:    [Float]
     let buttons: [Button?]
 
     /// Some static ones for proper configuration
@@ -22,7 +23,7 @@ struct Controller: Encodable {
     private let id:        String = GCExtendedGamepad.id
     private let index:     Int    = 0
     private let mapping:   String = "standard"
-    private let timestamp: Double = 0
+    private let timestamp: Float  = 0
 
     /// Conversion to json
     var jsonString: String {
