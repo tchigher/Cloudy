@@ -29,6 +29,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var forwardButton:      UIButton!
     @IBOutlet weak var buttonGeforceNow:   UIImageView!
     @IBOutlet weak var buttonStadia:       UIImageView!
+    @IBOutlet weak var buttonPatreon:      UIImageView!
 
     /// The controller injected to control the web
     var webController: WebController?
@@ -50,6 +51,9 @@ class MenuViewController: UIViewController {
         // tap for geforce now button
         let tapGeforceNow = UITapGestureRecognizer(target: self, action: #selector(onGeforceNowButtonPressed))
         buttonGeforceNow.addGestureRecognizer(tapGeforceNow)
+        // tap for patreon button
+        let tapPatreon = UITapGestureRecognizer(target: self, action: #selector(onPatreonButtonPressed))
+        buttonPatreon.addGestureRecognizer(tapPatreon)
         // init
         userAgentTextField.text = UserDefaults.standard.manualUserAgent
     }
@@ -148,6 +152,12 @@ extension MenuViewController {
     /// Handle nvidia shortcut
     @objc func onGeforceNowButtonPressed(_ sender: Any) {
         webController?.navigateTo(address: Navigator.Config.Url.geforceNow.absoluteString)
+        hideMenu()
+    }
+
+    /// Handle patreon shortcut
+    @objc func onPatreonButtonPressed(_ sender: Any) {
+        webController?.navigateTo(address: Navigator.Config.Url.patreon.absoluteString)
         hideMenu()
     }
 }

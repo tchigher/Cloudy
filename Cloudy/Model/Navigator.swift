@@ -23,6 +23,7 @@ class Navigator {
             static let googleAccounts = URL(string: "https://accounts.google.com")!
             static let geforceNow     = URL(string: "https://play.geforcenow.com")!
             static let nvidiaRoot     = URL(string: "https://www.nvidia.com")!
+            static let patreon        = URL(string: "https://www.patreon.com/mlostek")!
         }
 
         struct UserAgent {
