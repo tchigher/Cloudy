@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "stadia.png",
+      "filename" : "patreon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "stadia@2x.png",
+      "filename" : "patreon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "stadia@3x.png",
+      "filename" : "patreon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
