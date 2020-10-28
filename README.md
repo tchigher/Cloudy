@@ -56,6 +56,8 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later.
 
 ## 2. Sideload an unsigned IPA
 
+### Windows
+
 1. Make sure you have the downloadable binary version of iTunes and iCloud installed on your PC. Do NOT install the version of iTunes from the Windows 10 App Store.
 2. Download AltServer (requires Windows 10) here: https://altstore.io/
 3. After installing AltServer, plug your phone into your PC and move the .IPA file onto your phone using iTunes to save it somewhere you can navigate to in the Files app. 
@@ -65,3 +67,17 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later.
 7. Open AltStore on your phone, and navigate to the “My Apps” tab. 
 8. Press the “+” button in the top left corner of the screen.
 9. Navigate to the IPA file you dragged into the Files through iTunes, and click on it to install it.
+
+### Mac
+
+1. Make sure you have the downloadable binary version of iTunes and iCloud installed on your PC. Do NOT install the version of iTunes from the Windows 10 App Store.
+2. Download AltServer (for mac macOS 10.14.4+) here: https://altstore.io/
+3. After installing AltServer, plug your phone into your Mac. Once your phone is connected, you can click the AltServer on your status bar (diamond shaped icon) -> install AltStore -> choose your device ->enter your iTunes account info (to assign AltSotre). 
+4. After install AltStore, the app will show up in your iDevice. You will need to “activate” the app by going to setting->General->Device Management->to allow the app with iTunes account you put in the previous step (3)
+5. Now you can run AltStore on your iDevice.
+6. Open AltStore on your phone, and navigate to the “My Apps” tab.
+7. Press the “+” button in the top left corner of the screen.
+8. Navigate to the Couldy.IPA file you dragged into the Files through iTunes, and click on it to install it.
+9. You will need to leave ALTSERVER RUNNING (on your mac) for sideloading any apps or resign them before expiration! 
+10. If you are tired of connecting iDevice to Mac every time, you can do this remotely by check “Synch this iphone/ipad over wifi” in iTunes. Then install the mail-plugin on your mac by clicking AltServer icon -> install mail plugin. Make sure that your mac and the iDevice are running under the same wifi network (ethernet won’t work unfortunately) 
+11. AltServer signs the apps remotely, and will do it whenever it sees your device on the network, so make sure that it stays running so you can continue to use your apps without issue.
