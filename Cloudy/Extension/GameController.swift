@@ -102,7 +102,7 @@ extension GCExtendedGamepad {
                     /*  3 */ buttonY.controller,
                     /*  4 */ leftShoulder.controller,
                     /*  5 */ rightShoulder.controller,
-                    /*  6 */ leftTrigger.controller,
+                    /*  6 */ Controller.Button(pressed: leftTrigger.isPressed, touched: leftTrigger.isTouched, value: max(leftTrigger.value - 0.002, 0) + (GCExtendedGamepad.pulse ? 0.002 : 0)),
                     /*  7 */ rightTrigger.controller,
                     /*  8 */ buttonOptions.controller,
                     /*  9 */ buttonMenu.controller,
