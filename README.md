@@ -56,4 +56,12 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later.
 
 ## 2. Sideload an unsigned IPA
 
-_to be written_
+1. Make sure you have the downloadable binary version of iTunes and iCloud installed on your PC. Do NOT install the version of iTunes from the Windows 10 App Store.
+2. Download AltServer (requires Windows 10) here: https://altstore.io/
+3. After installing AltServer, plug your phone into your PC and move the .IPA file onto your phone using iTunes to save it somewhere you can navigate to in the Files app. 
+4. Open AltServer, and it will open in the hidden icon tray located on the right side of your taskbar (the button that looks like an up arrow, beside the volume speaker.) and click the AltServer icon (looks like a diamond).
+5. Making sure your phone is plugged in, install AltStore to your phone through this menu. You will have to login to your iTunes account.
+6. Once you login to your iTunes account and click through any remaining dialog boxes, AltStore will be installed on your phone. LEAVE ALTSERVER RUNNING! AltServer signs the apps remotely, and will do it whenever it sees your device on the network, so make sure that it stays running so you can continue to use your apps without issue.
+7. Open AltStore on your phone, and navigate to the “My Apps” tab. 
+8. Press the “+” button in the top left corner of the screen.
+9. Navigate to the IPA file you dragged into the Files through iTunes, and click on it to install it.
