@@ -3,13 +3,16 @@
 import Foundation
 import WebKit
 import GameController
-
+import CloudyLibrary
 
 /// Main module that connects the web views controller scripts to the native controller handling
 class WebViewControllerBridge: NSObject, WKScriptMessageHandlerWithReply {
 
     /// Remember last controller snapshot
-    var lastControllerSnapshot: GCExtendedGamepad? = nil
+    var lastControllerSnapshot: GCExtendedGamepad?         = nil
+
+    /// current export type
+    var exportType:             GCExtendedGamepad.JsonType = .regular
 
     /// Handle user content controller with proper native controller data reply
     func userContentController(_ userContentController: WKUserContentController,
@@ -22,12 +25,12 @@ class WebViewControllerBridge: NSObject, WKScriptMessageHandlerWithReply {
         }
         // nothing changed, skip
         if let lastControllerState = lastControllerSnapshot,
-              lastControllerState =~ currentControllerState {
+           lastControllerState =~ currentControllerState {
             replyHandler(nil, nil)
             return
         }
         // update and save
         lastControllerSnapshot = currentControllerState.capture()
-        replyHandler(currentControllerState.toJson(), nil)
+        replyHandler(currentControllerState.toJson(for: exportType), nil)
     }
 }

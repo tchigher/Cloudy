@@ -1,6 +1,8 @@
 // Copyright (c) 2020 Nomad5. All rights reserved.
 
 import Foundation
+import GameController
+import CloudyLibrary
 
 /// Model class to map navigation based on url
 class Navigator {
@@ -37,6 +39,7 @@ class Navigator {
     struct Navigation {
         let userAgent:    String?
         let forwardToUrl: URL?
+        let bridgeType:   GCExtendedGamepad.JsonType
     }
 
     /// The manual fixed user agent override
@@ -53,42 +56,42 @@ class Navigator {
     func getNavigation(for address: String?) -> Navigation {
         // early exit
         guard let requestedUrl = address else {
-            return Navigation(userAgent: manualUserAgent, forwardToUrl: nil)
+            return Navigation(userAgent: manualUserAgent, forwardToUrl: nil, bridgeType: .regular)
         }
         // map alias
         let navigationUrl = Config.aliasMapping[requestedUrl] ?? requestedUrl
         // no automatic navigation
         if useManualUserAgent {
-            return Navigation(userAgent: manualUserAgent, forwardToUrl: nil)
+            return Navigation(userAgent: manualUserAgent, forwardToUrl: nil, bridgeType: .regular)
         }
         // error happened with stadia, navigate to it directly
         if navigationUrl.starts(with: Config.stadiaWarning) &&
            navigationUrl.reversed().starts(with: Config.stadiaWarningRedirectReason.reversed()) {
-            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: Config.Url.googleStadia)
+            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: Config.Url.googleStadia, bridgeType: .regular)
         }
         // google account error occurred
         if navigationUrl.starts(with: Config.Url.googleAccounts.absoluteString) &&
            navigationUrl.contains(Config.googleAccountsWarning) {
-            return Navigation(userAgent: nil, forwardToUrl: Config.Url.googleAccounts)
+            return Navigation(userAgent: nil, forwardToUrl: Config.Url.googleAccounts, bridgeType: .regular)
         }
         // regular google stadia
         if navigationUrl.isEqualTo(other: Config.Url.googleStadia.absoluteString) {
-            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil)
+            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil, bridgeType: .regular)
         }
         // regular geforce now
         if navigationUrl.starts(with: Config.Url.geforceNow.absoluteString) ||
            navigationUrl.starts(with: Config.Url.nvidiaRoot.absoluteString) {
-            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil)
+            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil, bridgeType: .geforceNow)
         }
         // boosteroid
         if navigationUrl.starts(with: Config.Url.boosteroid.absoluteString) {
-            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil)
+            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil, bridgeType: .regular)
         }
         // some problem with signing
         if navigationUrl.contains(Config.signInString) {
-            return Navigation(userAgent: nil, forwardToUrl: nil)
+            return Navigation(userAgent: nil, forwardToUrl: nil, bridgeType: .regular)
         }
-        return Navigation(userAgent: manualUserAgent, forwardToUrl: nil)
+        return Navigation(userAgent: manualUserAgent, forwardToUrl: nil, bridgeType: .regular)
     }
 
     /// Handle popup

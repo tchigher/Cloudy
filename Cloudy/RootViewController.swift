@@ -18,7 +18,11 @@ class RootViewController: UIViewController {
     private var webView:   FullScreenWKWebView!
     private let navigator: Navigator = Navigator()
 
-    var menu: MenuController? = nil
+    /// The menu controller
+    var menu: MenuController?   = nil
+
+    /// The bridge between controller and web view
+    let webViewControllerBridge = WebViewControllerBridge()
 
     /// By default hide the status bar
     override var prefersStatusBarHidden: Bool {
@@ -33,7 +37,7 @@ class RootViewController: UIViewController {
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
         config.applicationNameForUserAgent = "Version/13.0.1 Safari/605.1.15"
-        config.userContentController.addScriptMessageHandler(WebViewControllerBridge(), contentWorld: WKContentWorld.page, name: "controller")
+        config.userContentController.addScriptMessageHandler(webViewControllerBridge, contentWorld: WKContentWorld.page, name: "controller")
         config.preferences = preferences
         return config
     }()
@@ -131,6 +135,7 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let navigation = navigator.getNavigation(for: navigationAction.request.url?.absoluteString)
         print("navigation -> \(navigationAction.request.url?.absoluteString ?? "nil") -> \(navigation)")
+        webViewControllerBridge.exportType = navigation.bridgeType
         webView.customUserAgent = navigation.userAgent
         if let forwardUrl = navigation.forwardToUrl {
             decisionHandler(.cancel)
