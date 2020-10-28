@@ -16,6 +16,11 @@ protocol MenuController {
     func show()
 }
 
+/// Overlay controller
+protocol OverlayController {
+    func showOverlay(for address: String?)
+}
+
 /// View controller to handle everything on the menu screen
 /// (after pressed the menu button)
 class MenuViewController: UIViewController {
@@ -29,10 +34,13 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var forwardButton:      UIButton!
     @IBOutlet weak var buttonGeforceNow:   UIImageView!
     @IBOutlet weak var buttonStadia:       UIImageView!
+    @IBOutlet weak var buttonBoosteroid:   UIImageView!
     @IBOutlet weak var buttonPatreon:      UIImageView!
+    @IBOutlet weak var buttonPayPal:       UIImageView!
 
-    /// The controller injected to control the web
-    var webController: WebController?
+    /// Some injections
+    var webController:     WebController?
+    var overlayController: OverlayController?
 
     /// By default hide the status bar
     override var prefersStatusBarHidden: Bool {
@@ -51,9 +59,15 @@ class MenuViewController: UIViewController {
         // tap for geforce now button
         let tapGeforceNow = UITapGestureRecognizer(target: self, action: #selector(onGeforceNowButtonPressed))
         buttonGeforceNow.addGestureRecognizer(tapGeforceNow)
+        // tap for boosteroid button
+        let tapBoosteroid = UITapGestureRecognizer(target: self, action: #selector(onBoosteroidButtonPressed))
+        buttonBoosteroid.addGestureRecognizer(tapBoosteroid)
         // tap for patreon button
         let tapPatreon = UITapGestureRecognizer(target: self, action: #selector(onPatreonButtonPressed))
         buttonPatreon.addGestureRecognizer(tapPatreon)
+        // tap for pay pal button
+        let tapPayPal = UITapGestureRecognizer(target: self, action: #selector(onPayPalButtonPressed))
+        buttonPayPal.addGestureRecognizer(tapPayPal)
         // init
         userAgentTextField.text = UserDefaults.standard.manualUserAgent
     }
@@ -155,9 +169,21 @@ extension MenuViewController {
         hideMenu()
     }
 
+    /// Handle boosteroid shortcut
+    @objc func onBoosteroidButtonPressed(_ sender: Any) {
+        webController?.navigateTo(address: Navigator.Config.Url.boosteroid.absoluteString)
+        hideMenu()
+    }
+
     /// Handle patreon shortcut
     @objc func onPatreonButtonPressed(_ sender: Any) {
-        webController?.navigateTo(address: Navigator.Config.Url.patreon.absoluteString)
+        overlayController?.showOverlay(for: Navigator.Config.Url.patreon.absoluteString)
+        hideMenu()
+    }
+
+    /// Handle paypal shortcut
+    @objc func onPayPalButtonPressed(_ sender: Any) {
+        overlayController?.showOverlay(for: Navigator.Config.Url.paypal.absoluteString)
         hideMenu()
     }
 }

@@ -22,8 +22,10 @@ class Navigator {
             static let googleStadia   = URL(string: "https://stadia.google.com")!
             static let googleAccounts = URL(string: "https://accounts.google.com")!
             static let geforceNow     = URL(string: "https://play.geforcenow.com")!
+            static let boosteroid     = URL(string: "https://cloud.boosteroid.com")!
             static let nvidiaRoot     = URL(string: "https://www.nvidia.com")!
             static let patreon        = URL(string: "https://www.patreon.com/mlostek")!
+            static let paypal         = URL(string: "https://paypal.me/pools/c/8tPw2veZIm")!
         }
 
         struct UserAgent {
@@ -78,11 +80,27 @@ class Navigator {
            navigationUrl.starts(with: Config.Url.nvidiaRoot.absoluteString) {
             return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil)
         }
+        // boosteroid
+        if navigationUrl.starts(with: Config.Url.boosteroid.absoluteString) {
+            return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: nil)
+        }
         // some problem with signing
         if navigationUrl.contains(Config.signInString) {
             return Navigation(userAgent: nil, forwardToUrl: nil)
         }
         return Navigation(userAgent: manualUserAgent, forwardToUrl: nil)
+    }
+
+    /// Handle popup
+    func shouldOpenPopup(for url: String?) -> Bool {
+        // early exit
+        guard let url = url else {
+            return false
+        }
+        if url.starts(with: Config.Url.boosteroid.absoluteString) {
+            return false
+        }
+        return true
     }
 
 }

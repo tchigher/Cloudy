@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "stadia.png",
       "idiom" : "universal",
+      "filename" : "stadia.png",
       "scale" : "1x"
     },
     {
-      "filename" : "stadia@2x.png",
       "idiom" : "universal",
+      "filename" : "stadia@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "stadia@3x.png",
       "idiom" : "universal",
+      "filename" : "stadia@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

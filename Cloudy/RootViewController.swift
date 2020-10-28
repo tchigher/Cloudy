@@ -59,6 +59,7 @@ class RootViewController: UIViewController {
         menu = menuViewController
         menuViewController.hideMenu()
         menuViewController.webController = webView
+        menuViewController.overlayController = self
         menuViewController.view.frame = view.bounds
         menuViewController.willMove(toParent: self)
         addChild(menuViewController)
@@ -69,6 +70,31 @@ class RootViewController: UIViewController {
     /// Tapped on the menu item
     @IBAction func onMenuButtonPressed(_ sender: Any) {
         menu?.show()
+    }
+}
+
+/// Show an web overlay
+extension RootViewController: OverlayController {
+
+    func showOverlay(for address: String?) {
+        // early exit
+        guard let address = address,
+              let url = URL(string: address) else {
+            return
+        }
+        // forward
+        showOverlay(for: URLRequest(url: url), configuration: webViewConfig)
+    }
+
+    func showOverlay(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
+        // create modal web view
+        let modalViewController = UIViewController()
+        let modalWebView        = WKWebView(frame: view.bounds, configuration: configuration)
+        modalViewController.view = modalWebView
+        modalWebView.customUserAgent = Navigator.Config.UserAgent.chromeDesktop
+        present(modalViewController, animated: true)
+        modalWebView.load(urlRequest)
+        return modalWebView
     }
 }
 
@@ -91,13 +117,12 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
     /// Handle popups
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
-            let modalViewController = UIViewController()
-            let modalWebView        = WKWebView(frame: view.bounds, configuration: configuration)
-            modalViewController.view = modalWebView
-            modalWebView.customUserAgent = Navigator.Config.UserAgent.chromeDesktop
-            present(modalViewController, animated: true)
-            modalWebView.load(navigationAction.request)
-            return modalWebView
+            if navigator.shouldOpenPopup(for: navigationAction.request.url?.absoluteString) {
+                let webView = showOverlay(for: navigationAction.request, configuration: configuration)
+            } else {
+                webView.load(navigationAction.request)
+                return nil
+            }
         }
         return nil
     }

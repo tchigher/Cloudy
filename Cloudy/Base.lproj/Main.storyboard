@@ -285,14 +285,25 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="627" height="90"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_stadia" translatesAutoresizingMaskIntoConstraints="NO" id="0VM-PV-WdW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="209" height="90"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="157" height="90"/>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_geforce_now" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-FP-3hb">
-                                                                <rect key="frame" x="209" y="0.0" width="209" height="90"/>
+                                                                <rect key="frame" x="157" y="0.0" width="156.5" height="90"/>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_patreon" translatesAutoresizingMaskIntoConstraints="NO" id="9yC-sf-omI" userLabel="Button Patreon">
-                                                                <rect key="frame" x="418" y="0.0" width="209" height="90"/>
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_boosteroid" translatesAutoresizingMaskIntoConstraints="NO" id="Wfg-u9-jgh" userLabel="Button Boosteroid">
+                                                                <rect key="frame" x="313.5" y="0.0" width="157" height="90"/>
                                                             </imageView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9QP-Bm-aQo">
+                                                                <rect key="frame" x="470.5" y="0.0" width="156.5" height="90"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_patreon" translatesAutoresizingMaskIntoConstraints="NO" id="9yC-sf-omI" userLabel="Button Patreon">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="156.5" height="40"/>
+                                                                    </imageView>
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_paypal" translatesAutoresizingMaskIntoConstraints="NO" id="wz2-wP-jxe" userLabel="Button PayPal">
+                                                                        <rect key="frame" x="0.0" y="50" width="156.5" height="40"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -358,8 +369,10 @@
                         <outlet property="addressBar" destination="I1t-Wz-eFj" id="Ohh-tp-BjR"/>
                         <outlet property="automaticUserAgent" destination="YJ3-pP-kIl" id="PSD-oL-PpB"/>
                         <outlet property="backButton" destination="LBE-2y-SAm" id="0qk-8X-SQ1"/>
+                        <outlet property="buttonBoosteroid" destination="Wfg-u9-jgh" id="DnK-sM-pzF"/>
                         <outlet property="buttonGeforceNow" destination="Kdq-FP-3hb" id="1GC-Yc-UvH"/>
                         <outlet property="buttonPatreon" destination="9yC-sf-omI" id="Sf3-eG-gLl"/>
+                        <outlet property="buttonPayPal" destination="wz2-wP-jxe" id="xL2-1B-WAs"/>
                         <outlet property="buttonStadia" destination="0VM-PV-WdW" id="CxB-kR-0dV"/>
                         <outlet property="forwardButton" destination="HL9-MD-JBo" id="kn6-je-sLp"/>
                         <outlet property="manualUserAgent" destination="LXn-E5-rXe" id="hzl-Bl-Www"/>
@@ -373,8 +386,10 @@
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+        <image name="button_boosteroid" width="512" height="512"/>
         <image name="button_geforce_now" width="512" height="512"/>
-        <image name="button_patreon" width="512" height="512"/>
+        <image name="button_patreon" width="512" height="256"/>
+        <image name="button_paypal" width="512" height="256"/>
         <image name="button_stadia" width="512" height="512"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>
