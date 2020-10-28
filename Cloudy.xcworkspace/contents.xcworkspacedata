@@ -3,5 +3,6 @@
    version = "1.0">
    <FileRef
       location = "group:Cloudy.xcodeproj">
+      location = "group:../CloudyLibrary/CloudyLibrary.xcodeproj">
    </FileRef>
 </Workspace>
