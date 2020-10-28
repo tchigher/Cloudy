@@ -14,14 +14,13 @@ A cloud gaming ready browser for iOS.
 - The following shortcuts in the address bar (just type in the following alias in order to get to the desired platform)
   - `stadia` -> opens stadia
   - `gfn` -> opens geforce now 
+  - `boost` -> opens boosteroid
 - If you want to go crazy, you can specify your custom user agent
 - Reset all cookies and caches
 
 # Features in development
 
 - Fixing broken axis controls on geforce now
-- The following shortcuts for the address bar
-  - `boost` -> opens boosteroid
 - Touch controls to imitate the mouse
 - Keyboard input
 - Virtual controller
