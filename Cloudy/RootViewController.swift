@@ -103,9 +103,20 @@ extension RootViewController: OverlayController {
         let modalWebView        = WKWebView(frame: .zero, configuration: configuration)
         modalViewController.view = modalWebView
         modalWebView.customUserAgent = Navigator.Config.UserAgent.chromeDesktop
-        present(modalViewController, animated: true)
         modalWebView.load(urlRequest)
+        // the navigation view controller with its close button
+        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
+        modalViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close",
+                                                                                style: .done,
+                                                                                target: self,
+                                                                                action: #selector(self.onOverlayClosePressed))
+        present(modalNavigationController, animated: true)
         return modalWebView
+    }
+
+    /// Close the overlay
+    @objc func onOverlayClosePressed(sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 }
 
