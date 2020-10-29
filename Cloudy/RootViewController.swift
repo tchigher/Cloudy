@@ -85,6 +85,7 @@ class RootViewController: UIViewController {
 /// Show an web overlay
 extension RootViewController: OverlayController {
 
+    /// Show an overlay
     func showOverlay(for address: String?) {
         // early exit
         guard let address = address,
@@ -92,10 +93,11 @@ extension RootViewController: OverlayController {
             return
         }
         // forward
-        showOverlay(for: URLRequest(url: url), configuration: webViewConfig)
+        createModalWebView(for: URLRequest(url: url), configuration: webViewConfig)
     }
 
-    func showOverlay(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
+    /// Internally we create a modal web view and present it
+    private func createModalWebView(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
         // create modal web view
         let modalViewController = UIViewController()
         let modalWebView        = WKWebView(frame: .zero, configuration: configuration)
@@ -127,7 +129,8 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
             if navigator.shouldOpenPopup(for: navigationAction.request.url?.absoluteString) {
-                let webView = showOverlay(for: navigationAction.request, configuration: configuration)
+                let modalWebView = createModalWebView(for: navigationAction.request, configuration: configuration)
+                return modalWebView
             } else {
                 webView.load(navigationAction.request)
                 return nil
