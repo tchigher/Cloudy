@@ -48,15 +48,17 @@ Here is a quick guide on how to build the app on your own.
 An Intel-based Mac running macOS Catalina 10.15.4 or later & Version 12.1 (12A7403) (no other version yet supported)
 
 1. Install XCode https://apps.apple.com/de/app/xcode/id497799835?mt=12
-2. Download Cloudy source code repostiory (visit https://github.com/mlostekk/Cloudy then look for a green `Code` button, hit it and select `Download ZIP`
-3. Unzip the archive
-4. Doubleclick `Cloudy.xcworkspace`, XCode 12 should open
-5. Connect iOS device to your Mac, let it some time to be recognized
-6. Select your device in XCode [`1`]
-7. Go to `Cloudy` [`2`], select `Signing & Capabilities` [`3`]
-8. Select your name inside `Team` [`4`] and change the `Bundle Identifier`[`4`] to something / whatever you like `com.your.favorite.villian`
-9. Press run [`5`] and wait until it pops up on your device
-10. Have a lot of fun streaming games on iOS
+2. Install Cocoapods https://cocoapods.org/
+3. Download (or clone) Cloudy source code repostiory (visit https://github.com/mlostekk/Cloudy then look for a green `Code` button, hit it and select `Download ZIP`)
+4. Unzip the archive
+5. Install pods via `pod install`
+6. Doubleclick `Cloudy.xcworkspace`, XCode 12.1 should open
+7. Connect iOS device to your Mac, let it some time to be recognized
+8. Select your device in XCode [`1`]
+9. Go to `Cloudy` [`2`], select `Signing & Capabilities` [`3`]
+10. Select your name inside `Team` [`4`] and change the `Bundle Identifier`[`4`] to something / whatever you like `com.your.favorite.villian`
+11. Press run [`5`] and wait until it pops up on your device
+12. Have a lot of fun streaming games on iOS
 
 ![](Media/xcode.png)
 
