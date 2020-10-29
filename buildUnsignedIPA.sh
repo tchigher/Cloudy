@@ -5,7 +5,7 @@ rm -rf build
 rm -rf Payload
 
 # Build unsigned archive
-/usr/bin/xcodebuild -scheme Cloudy -workspace Cloudy.xcworkspace/ -configuration Release clean archive -archivePath "build/Cloudy.xcarchive" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+/usr/bin/xcodebuild -scheme Cloudy -workspace Cloudy.xcworkspace/ -configuration Release clean archive -archivePath "build/Cloudy.xcarchive" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO | xcpretty
 
 # Check not signed
 codesign -dv build/Cloudy.xcarchive/Products/Applications/Cloudy.app
