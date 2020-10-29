@@ -83,7 +83,7 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later & Version 12.1 (12A74
 5. Now you can run AltStore on your iDevice.
 6. Open AltStore on your phone, and navigate to the “My Apps” tab.
 7. Press the “+” button in the top left corner of the screen.
-8. Navigate to the Couldy.IPA file you dragged into the Files through iTunes, and click on it to install it.
+8. Navigate to the Cloudy.IPA file you dragged into the Files through iTunes, and click on it to install it.
 9. You will need to leave ALTSERVER RUNNING (on your mac) for sideloading any apps or resign them before expiration! 
 10. If you are tired of connecting iDevice to Mac every time, you can do this remotely by check “Synch this iphone/ipad over wifi” in iTunes. Then install the mail-plugin on your mac by clicking AltServer icon -> install mail plugin. Make sure that your mac and the iDevice are running under the same wifi network (ethernet won’t work unfortunately) 
 11. AltServer signs the apps remotely, and will do it whenever it sees your device on the network, so make sure that it stays running so you can continue to use your apps without issue.
