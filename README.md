@@ -6,7 +6,9 @@ A cloud gaming ready browser for iOS.
 
 ![](Media/cloudy.gif)
 
-# Supported Features
+# Features
+
+## Supported Features
 
 - Right now opens stadia path automatically on first startup
 - Supports Bluetooth gaming controllers
@@ -18,12 +20,17 @@ A cloud gaming ready browser for iOS.
 - If you want to go crazy, you can specify your custom user agent
 - Reset all cookies and caches
 
-# Features in development
+## Features in development
 
 - Fixing broken axis controls on geforce now
 - Touch controls to imitate the mouse
 - Keyboard input
 - Virtual controller
+
+## Trello development board
+
+Feel free to discuss features, bugs and other improvement requests on the public Trello board.
+> https://trello.com/b/A2Z965Sf
 
 # Support the development
 
@@ -38,7 +45,7 @@ A cloud gaming ready browser for iOS.
 Here is a quick guide on how to build the app on your own.
 
 ### Prerequisites
-An Intel-based Mac running macOS Catalina 10.15.4 or later.
+An Intel-based Mac running macOS Catalina 10.15.4 or later & Version 12.1 (12A7403) (no other version yet supported)
 
 1. Install XCode https://apps.apple.com/de/app/xcode/id497799835?mt=12
 2. Download Cloudy source code repostiory (visit https://github.com/mlostekk/Cloudy then look for a green `Code` button, hit it and select `Download ZIP`
