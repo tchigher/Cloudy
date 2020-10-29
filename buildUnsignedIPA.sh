@@ -27,4 +27,4 @@ rm -rf build
 rm -rf Payload
 
 # Tag release
-tag . $VERION_STRING
+git tag . $VERION_STRING
