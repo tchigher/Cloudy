@@ -27,4 +27,4 @@ rm -rf build
 rm -rf Payload
 
 # Tag release
-git tag . $VERION_STRING
+git tag -a $VERION_STRING -m "automated CI tag for release candidate '$2'"
