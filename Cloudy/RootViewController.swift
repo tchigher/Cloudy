@@ -25,7 +25,12 @@ class RootViewController: UIViewController {
     let webViewControllerBridge = WebViewControllerBridge()
 
     /// By default hide the status bar
-    override var prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden:         Bool {
+        true
+    }
+
+    /// Hide bottom bar on x devices
+    override var prefersHomeIndicatorAutoHidden: Bool {
         true
     }
 
@@ -93,7 +98,7 @@ extension RootViewController: OverlayController {
     func showOverlay(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
         // create modal web view
         let modalViewController = UIViewController()
-        let modalWebView        = WKWebView(frame: view.bounds, configuration: configuration)
+        let modalWebView        = WKWebView(frame: .zero, configuration: configuration)
         modalViewController.view = modalWebView
         modalWebView.customUserAgent = Navigator.Config.UserAgent.chromeDesktop
         present(modalViewController, animated: true)
