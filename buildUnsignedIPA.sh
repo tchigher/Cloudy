@@ -17,7 +17,7 @@ mv build/Cloudy.xcarchive/Products/Applications/Cloudy.app Payload/Cloudy.app
 # Get version
 VERSION=$(xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
 BUILD=$(xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
-VERION_STRING=v$VERSION($BUILD)
+VERION_STRING="v$VERSION($BUILD)"
 
 # Zip file
 zip -r "Cloudy-$VERION_STRING.ipa" Payload
