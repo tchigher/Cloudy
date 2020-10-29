@@ -130,8 +130,8 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
         webView.injectControllerScript()
         // update address
         menu?.updateAddressBar(with: AddressBarInfo(url: webView.url?.absoluteString,
-                                                    canGoBack: webView.canGoForward,
-                                                    canGoForward: webView.canGoBack))
+                                                    canGoBack: webView.canGoBack,
+                                                    canGoForward: webView.canGoForward))
         // save last visited url
         UserDefaults.standard.lastVisitedUrl = webView.url
     }
