@@ -39,7 +39,7 @@ class RootViewController: UIViewController {
         let preferences = WKPreferences()
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = UserDefaults.standard.allowInlineMedia ?? true
+        config.allowsInlineMediaPlayback = UserDefaults.standard.allowInlineMedia
         config.mediaTypesRequiringUserActionForPlayback = []
         config.applicationNameForUserAgent = "Version/13.0.1 Safari/605.1.15"
         config.userContentController.addScriptMessageHandler(webViewControllerBridge, contentWorld: WKContentWorld.page, name: "controller")

@@ -70,6 +70,8 @@ class MenuViewController: UIViewController {
         buttonPayPal.addGestureRecognizer(tapPayPal)
         // init
         userAgentTextField.text = UserDefaults.standard.manualUserAgent
+        manualUserAgent.isOn = UserDefaults.standard.useManualUserAgent
+        allowInlineFeedback.isOn = UserDefaults.standard.allowInlineMedia
     }
 }
 
