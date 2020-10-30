@@ -26,17 +26,17 @@ protocol OverlayController {
 class MenuViewController: UIViewController {
 
     /// View references
-    @IBOutlet weak var userAgentTextField: UITextField!
-    @IBOutlet weak var manualUserAgent:    UISwitch!
-    @IBOutlet weak var automaticUserAgent: UISwitch!
-    @IBOutlet weak var addressBar:         UITextField!
-    @IBOutlet weak var backButton:         UIButton!
-    @IBOutlet weak var forwardButton:      UIButton!
-    @IBOutlet weak var buttonGeforceNow:   UIImageView!
-    @IBOutlet weak var buttonStadia:       UIImageView!
-    @IBOutlet weak var buttonBoosteroid:   UIImageView!
-    @IBOutlet weak var buttonPatreon:      UIImageView!
-    @IBOutlet weak var buttonPayPal:       UIImageView!
+    @IBOutlet weak var userAgentTextField:  UITextField!
+    @IBOutlet weak var manualUserAgent:     UISwitch!
+    @IBOutlet weak var addressBar:          UITextField!
+    @IBOutlet weak var backButton:          UIButton!
+    @IBOutlet weak var forwardButton:       UIButton!
+    @IBOutlet weak var buttonGeforceNow:    UIImageView!
+    @IBOutlet weak var buttonStadia:        UIImageView!
+    @IBOutlet weak var buttonBoosteroid:    UIImageView!
+    @IBOutlet weak var buttonPatreon:       UIImageView!
+    @IBOutlet weak var buttonPayPal:        UIImageView!
+    @IBOutlet weak var allowInlineFeedback: UISwitch!
 
     /// Some injections
     var webController:     WebController?
@@ -135,16 +135,14 @@ extension MenuViewController {
         webController?.clearCache()
     }
 
-    /// Automatic user agent changed
-    @IBAction func onAutomaticUserAgentSwitchChanged(_ sender: Any) {
-        manualUserAgent.setOn(!automaticUserAgent.isOn, animated: true)
-        UserDefaults.standard.useManualUserAgent = true
-    }
-
     /// Manual user agent changed
     @IBAction func onManualUserAgentSwitchChanged(_ sender: Any) {
-        automaticUserAgent.setOn(!manualUserAgent.isOn, animated: true)
-        UserDefaults.standard.useManualUserAgent = false
+        UserDefaults.standard.useManualUserAgent = manualUserAgent.isOn
+    }
+
+    /// Allow inline media changed
+    @IBAction func allowInlineMediaValueChanged(_ sender: Any) {
+        UserDefaults.standard.allowInlineMedia = allowInlineFeedback.isOn
     }
 
     /// User agent value changed

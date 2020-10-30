@@ -39,7 +39,7 @@ class RootViewController: UIViewController {
         let preferences = WKPreferences()
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = true
+        config.allowsInlineMediaPlayback = UserDefaults.standard.allowInlineMedia ?? true
         config.mediaTypesRequiringUserActionForPlayback = []
         config.applicationNameForUserAgent = "Version/13.0.1 Safari/605.1.15"
         config.userContentController.addScriptMessageHandler(webViewControllerBridge, contentWorld: WKContentWorld.page, name: "controller")
@@ -66,7 +66,7 @@ class RootViewController: UIViewController {
         // menu view controller
         let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menu = menuViewController
-        menuViewController.hideMenu()
+        menuViewController.view.alpha = 0
         menuViewController.webController = webView
         menuViewController.overlayController = self
         menuViewController.view.frame = view.bounds
@@ -93,7 +93,7 @@ extension RootViewController: OverlayController {
             return
         }
         // forward
-        createModalWebView(for: URLRequest(url: url), configuration: webViewConfig)
+        _ = createModalWebView(for: URLRequest(url: url), configuration: webViewConfig)
     }
 
     /// Internally we create a modal web view and present it
