@@ -39,7 +39,9 @@ class RootViewController: UIViewController {
         let preferences = WKPreferences()
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = true
+        config.allowsInlineMediaPlayback = UserDefaults.standard.allowInlineMedia
+        config.allowsAirPlayForMediaPlayback = false
+        config.allowsPictureInPictureMediaPlayback = false
         config.mediaTypesRequiringUserActionForPlayback = []
         config.applicationNameForUserAgent = "Version/13.0.1 Safari/605.1.15"
         config.userContentController.addScriptMessageHandler(webViewControllerBridge, contentWorld: WKContentWorld.page, name: "controller")
@@ -57,6 +59,7 @@ class RootViewController: UIViewController {
         webView.fillParent()
         webView.uiDelegate = self
         webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = false
         // initial
         if let lastVisitedUrl = UserDefaults.standard.lastVisitedUrl {
             webView.navigateTo(url: lastVisitedUrl)
@@ -66,7 +69,7 @@ class RootViewController: UIViewController {
         // menu view controller
         let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menu = menuViewController
-        menuViewController.hideMenu()
+        menuViewController.view.alpha = 0
         menuViewController.webController = webView
         menuViewController.overlayController = self
         menuViewController.view.frame = view.bounds
@@ -85,6 +88,7 @@ class RootViewController: UIViewController {
 /// Show an web overlay
 extension RootViewController: OverlayController {
 
+    /// Show an overlay
     func showOverlay(for address: String?) {
         // early exit
         guard let address = address,
@@ -92,18 +96,30 @@ extension RootViewController: OverlayController {
             return
         }
         // forward
-        showOverlay(for: URLRequest(url: url), configuration: webViewConfig)
+        _ = createModalWebView(for: URLRequest(url: url), configuration: webViewConfig)
     }
 
-    func showOverlay(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
+    /// Internally we create a modal web view and present it
+    private func createModalWebView(for urlRequest: URLRequest, configuration: WKWebViewConfiguration) -> WKWebView? {
         // create modal web view
         let modalViewController = UIViewController()
         let modalWebView        = WKWebView(frame: .zero, configuration: configuration)
         modalViewController.view = modalWebView
         modalWebView.customUserAgent = Navigator.Config.UserAgent.chromeDesktop
-        present(modalViewController, animated: true)
         modalWebView.load(urlRequest)
+        // the navigation view controller with its close button
+        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
+        modalViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close",
+                                                                                style: .done,
+                                                                                target: self,
+                                                                                action: #selector(self.onOverlayClosePressed))
+        present(modalNavigationController, animated: true)
         return modalWebView
+    }
+
+    /// Close the overlay
+    @objc func onOverlayClosePressed(sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 }
 
@@ -117,8 +133,8 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
         webView.injectControllerScript()
         // update address
         menu?.updateAddressBar(with: AddressBarInfo(url: webView.url?.absoluteString,
-                                                    canGoBack: webView.canGoForward,
-                                                    canGoForward: webView.canGoBack))
+                                                    canGoBack: webView.canGoBack,
+                                                    canGoForward: webView.canGoForward))
         // save last visited url
         UserDefaults.standard.lastVisitedUrl = webView.url
     }
@@ -127,7 +143,8 @@ extension RootViewController: WKNavigationDelegate, WKUIDelegate {
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
             if navigator.shouldOpenPopup(for: navigationAction.request.url?.absoluteString) {
-                let webView = showOverlay(for: navigationAction.request, configuration: configuration)
+                let modalWebView = createModalWebView(for: navigationAction.request, configuration: configuration)
+                return modalWebView
             } else {
                 webView.load(navigationAction.request)
                 return nil

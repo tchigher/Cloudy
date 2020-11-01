@@ -10,6 +10,7 @@ extension UserDefaults {
         static let lastVisitedUrlKey  = "lastVisitedUrlKey"
         static let manualUserAgent    = "manualUserAgent"
         static let useManualUserAgent = "useManualUserAgent"
+        static let allowInlineMedia   = "allowInlineMedia"
     }
 
     /// Read / write the last visited url
@@ -33,12 +34,29 @@ extension UserDefaults {
     }
 
     /// Read / write the flag if the manual user agent should be used
-    var useManualUserAgent: Bool? {
+    var useManualUserAgent: Bool {
         get {
-            UserDefaults.standard.bool(forKey: Config.useManualUserAgent)
+            if UserDefaults.standard.object(forKey: Config.useManualUserAgent) == nil {
+                return false
+            }
+            return UserDefaults.standard.bool(forKey: Config.useManualUserAgent)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Config.useManualUserAgent)
         }
     }
+
+    /// Read / write allow inline media enabled flag
+    var allowInlineMedia:   Bool {
+        get {
+            if UserDefaults.standard.object(forKey: Config.allowInlineMedia) == nil {
+                return true
+            }
+            return UserDefaults.standard.bool(forKey: Config.allowInlineMedia)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Config.allowInlineMedia)
+        }
+    }
+
 }

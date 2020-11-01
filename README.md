@@ -6,7 +6,9 @@ A cloud gaming ready browser for iOS.
 
 ![](Media/cloudy.gif)
 
-# Supported Features
+# Features
+
+## Supported Features
 
 - Right now opens stadia path automatically on first startup
 - Supports Bluetooth gaming controllers
@@ -18,18 +20,23 @@ A cloud gaming ready browser for iOS.
 - If you want to go crazy, you can specify your custom user agent
 - Reset all cookies and caches
 
-# Features in development
+## Features in development
 
 - Fixing broken axis controls on geforce now
 - Touch controls to imitate the mouse
 - Keyboard input
 - Virtual controller
 
+## Trello development board
+
+Feel free to discuss features, bugs and other improvement requests on the public Trello board.
+> https://trello.com/b/A2Z965Sf
+
 # Support the development
 
  Patreon             |  Paypal
 :-------------------------:|:-------------------------:
-[![patreon](Media/becomePatreon.png)](https://www.patreon.com/bePatron?u=44456418)  |  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://paypal.me/pools/c/8tKK9M8XUi)
+[![patreon](Media/becomePatreon.png)](https://www.patreon.com/cloudyApp)  |  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://paypal.me/pools/c/8tKK9M8XUi)
 
 # Ways to get the app on your device
 
@@ -38,18 +45,20 @@ A cloud gaming ready browser for iOS.
 Here is a quick guide on how to build the app on your own.
 
 ### Prerequisites
-An Intel-based Mac running macOS Catalina 10.15.4 or later.
+An Intel-based Mac running macOS Catalina 10.15.4 or later & Version 12.1 (12A7403) (no other version yet supported)
 
 1. Install XCode https://apps.apple.com/de/app/xcode/id497799835?mt=12
-2. Download Cloudy source code repostiory (visit https://github.com/mlostekk/Cloudy then look for a green `Code` button, hit it and select `Download ZIP`
-3. Unzip the archive
-4. Doubleclick `Cloudy.xcworkspace`, XCode 12 should open
-5. Connect iOS device to your Mac, let it some time to be recognized
-6. Select your device in XCode [`1`]
-7. Go to `Cloudy` [`2`], select `Signing & Capabilities` [`3`]
-8. Select your name inside `Team` [`4`] and change the `Bundle Identifier`[`4`] to something / whatever you like `com.your.favorite.villian`
-9. Press run [`5`] and wait until it pops up on your device
-10. Have a lot of fun streaming games on iOS
+2. Install Cocoapods https://cocoapods.org/
+3. Download (or clone) Cloudy source code repostiory (visit https://github.com/mlostekk/Cloudy then look for a green `Code` button, hit it and select `Download ZIP`)
+4. Unzip the archive
+5. Install pods via `pod install`
+6. Doubleclick `Cloudy.xcworkspace`, XCode 12.1 should open
+7. Connect iOS device to your Mac, let it some time to be recognized
+8. Select your device in XCode [`1`]
+9. Go to `Cloudy` [`2`], select `Signing & Capabilities` [`3`]
+10. Select your name inside `Team` [`4`] and change the `Bundle Identifier`[`4`] to something / whatever you like `com.your.favorite.villian`
+11. Press run [`5`] and wait until it pops up on your device
+12. Have a lot of fun streaming games on iOS
 
 ![](Media/xcode.png)
 
@@ -75,7 +84,7 @@ An Intel-based Mac running macOS Catalina 10.15.4 or later.
 4. Now you can run AltStore on your iDevice.
 5. Open AltStore on your phone, and navigate to the “My Apps” tab.
 6. Press the “+” button in the top left corner of the screen.
-7. Navigate to the Couldy.IPA file you dragged into the Files through iTunes, and click on it to install it.
+7. Navigate to the Cloudy.IPA file you dragged into the Files through iTunes, and click on it to install it.
 8. You will need to leave ALTSERVER RUNNING (on your mac) for sideloading any apps or resign them before expiration! 
 9. If you are tired of connecting iDevice to Mac every time, you can do this remotely by check “Synch this iphone/ipad over wifi” in iTunes. Then install the mail-plugin on your mac by clicking AltServer icon -> install mail plugin. Make sure that your mac and the iDevice are running under the same wifi network (ethernet won’t work unfortunately) 
 10. AltServer signs the apps remotely, and will do it whenever it sees your device on the network, so make sure that it stays running so you can continue to use your apps without issue.

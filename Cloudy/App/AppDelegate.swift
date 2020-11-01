@@ -1,13 +1,14 @@
 // Copyright (c) 2020 Nomad5. All rights reserved.
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Initialize firebase
+        FirebaseApp.configure()
         // Override point for customization after application launch.
         return true
     }

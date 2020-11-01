@@ -10,7 +10,8 @@ class Navigator {
     /// Some global constants
     struct Config {
         static let stadiaWarning                  = "https://stadia.google.com/warning/"
-        static let stadiaWarningRedirectReason    = "redirect_reasons=9"
+        static let stadiaWarningRedirectReason9   = "redirect_reasons=9"
+        static let stadiaWarningRedirectReason10  = "redirect_reasons=10"
         static let googleAccountsWarning          = "deniedsigninrejected"
         static let signInString                   = "signin"
 
@@ -49,7 +50,7 @@ class Navigator {
 
     /// Wrapper around user defaults saved user agent enabled / disabled flag
     var useManualUserAgent: Bool {
-        UserDefaults.standard.useManualUserAgent ?? false
+        UserDefaults.standard.useManualUserAgent
     }
 
     /// Map navigation address
@@ -66,7 +67,8 @@ class Navigator {
         }
         // error happened with stadia, navigate to it directly
         if navigationUrl.starts(with: Config.stadiaWarning) &&
-           navigationUrl.reversed().starts(with: Config.stadiaWarningRedirectReason.reversed()) {
+           (navigationUrl.reversed().starts(with: Config.stadiaWarningRedirectReason9.reversed()) ||
+            navigationUrl.reversed().starts(with: Config.stadiaWarningRedirectReason10.reversed())) {
             return Navigation(userAgent: Config.UserAgent.chromeDesktop, forwardToUrl: Config.Url.googleStadia, bridgeType: .regular)
         }
         // google account error occurred
