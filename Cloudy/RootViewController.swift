@@ -40,6 +40,8 @@ class RootViewController: UIViewController {
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = UserDefaults.standard.allowInlineMedia
+        config.allowsAirPlayForMediaPlayback = false
+        config.allowsPictureInPictureMediaPlayback = false
         config.mediaTypesRequiringUserActionForPlayback = []
         config.applicationNameForUserAgent = "Version/13.0.1 Safari/605.1.15"
         config.userContentController.addScriptMessageHandler(webViewControllerBridge, contentWorld: WKContentWorld.page, name: "controller")
@@ -57,6 +59,7 @@ class RootViewController: UIViewController {
         webView.fillParent()
         webView.uiDelegate = self
         webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = false
         // initial
         if let lastVisitedUrl = UserDefaults.standard.lastVisitedUrl {
             webView.navigateTo(url: lastVisitedUrl)

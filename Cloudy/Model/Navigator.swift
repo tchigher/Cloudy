@@ -50,7 +50,7 @@ class Navigator {
 
     /// Wrapper around user defaults saved user agent enabled / disabled flag
     var useManualUserAgent: Bool {
-        UserDefaults.standard.useManualUserAgent ?? false
+        UserDefaults.standard.useManualUserAgent
     }
 
     /// Map navigation address
